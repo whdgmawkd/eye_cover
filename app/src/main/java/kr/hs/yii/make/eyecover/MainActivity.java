@@ -11,15 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import kr.hs.yii.make.eyecover.screenfilter.ScreenfilterService;
 import kr.hs.yii.make.eyecover.services.NotificationService;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageButton eyecoverBtn;
     private Button scBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getApplicationContext().startService(new Intent(this,NotificationService.class));
-
+        eyecoverBtn = (ImageButton)findViewById(R.id.eyecoverMainButton);
+        eyecoverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),EyecoverActivity.class));
+            }
+        });
     }
 
     @Override
@@ -60,5 +66,4 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.activity_main_menu, menu);
         return true;
     }
-
 }

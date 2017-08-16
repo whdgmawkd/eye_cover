@@ -11,18 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <receiver android:name=".receiver.bootCompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".TestActivity">
-        </activity>
-
         <service
             android:name=".services.NotificationService"
             android:enabled="true" />
+
+        <!-- enable below 2 service when features are ready to use -->
+        <service
+            android:name=".services.FaceDetectService"
+            android:enabled="false" />
+
+        <service
+            android:name=".services.CameraService"
+            android:enabled="false" />
 
         <activity
             android:name=".SettingsActivity"
@@ -30,8 +37,9 @@
             android:parentActivityName=".TestActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="kr.hs.yii.make.eyecover.TestActivity" />
+                android:value="kr.hs.yii.make.eyecover.MainActivity" />
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -41,6 +49,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".EyecoverActivity"
+            android:label="@string/title_activity_eyecover"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kr.hs.yii.make.eyecover.MainActivity" />
         </activity>
     </application>
 

@@ -35,7 +35,7 @@ import java.io.IOException;
  * Created by parkjongheum on 14/08/2017.
  */
 
-class CameraService extends Service implements
+public class CameraService extends Service implements
         SurfaceHolder.Callback {
 
     // Camera variables
