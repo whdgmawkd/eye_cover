@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/eyecover.iml" filepath="$PROJECT_DIR$/eyecover.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kaist_eye_cover.iml" filepath="$PROJECT_DIR$/kaist_eye_cover.iml" />
     </modules>
   </component>
 </project>
