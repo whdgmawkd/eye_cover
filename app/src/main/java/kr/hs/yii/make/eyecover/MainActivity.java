@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import kr.hs.yii.make.eyecover.receiver.TileReceiver;
 import kr.hs.yii.make.eyecover.screenfilter.ScreenfilterService;
 import kr.hs.yii.make.eyecover.services.NotificationService;
+import kr.hs.yii.make.eyecover.utils.Utility;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent scfIntent = new Intent(getApplicationContext(), ScreenfilterService.class);
                 scfIntent.putExtra(getString(R.string.intent_screenfilter), true);
                 getApplicationContext().startService(scfIntent);
+                Intent i = new Intent();
+                i.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+                i.putExtra(Utility.EXTRA_ACTION,Utility.ACTION_START);
+                sendBroadcast(i);
             }
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

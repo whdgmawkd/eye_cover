@@ -3,6 +3,8 @@
     package="kr.hs.yii.make.eyecover">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -18,13 +20,20 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receiver.TileReceiver">
+            <intent-filter>
+                <action android:name="kr.hs.yii.make.eyecover.ACTION_UPDATE_STATUS" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".services.NotificationService"
             android:enabled="true" />
 
         <service
             android:name=".screenfilter.ScreenfilterService"
-            android:enabled="true" />
+            android:enabled="true">
+        </service>
 
         <!-- enable below 2 service when features are ready to use -->
         <service
