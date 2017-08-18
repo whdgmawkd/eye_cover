@@ -42,7 +42,7 @@ public class ScreenfilterService extends Service {
 
     private static final int ANIMATE_DURATION_MILES = 250;
     private static final int NOTIFICATION_NO = 1024;
-    private static int brightness = 50;
+    private static int brightness = 80;
 
 
 
