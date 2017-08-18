@@ -23,7 +23,7 @@ public class ScreenfilterService extends Service{
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onStart(Intent intent, int startId) {
         Bundle args = intent.getExtras();
         boolean isFilterEnable = args.getBoolean(getString(R.string.intent_screenfilter));
         Log.d("ScreenfilterService","Started");
@@ -31,6 +31,6 @@ public class ScreenfilterService extends Service{
             //todo Enable secreen filter
             Toast.makeText(getApplicationContext(), "screenfilter", Toast.LENGTH_LONG).show();
         }
-        return super.onStartCommand(intent, flags, startId);
+        super.onStart(intent, startId);
     }
 }

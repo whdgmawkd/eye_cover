@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import kr.hs.yii.make.eyecover.screenfilter.ScreenfilterService;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", "callScreenFilterService");
                 Intent scfIntent = new Intent(getApplicationContext(), ScreenfilterService.class);
                 scfIntent.putExtra(getString(R.string.intent_screenfilter), true);
-                startService(scfIntent);
+                getApplicationContext().startService(scfIntent);
             }
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

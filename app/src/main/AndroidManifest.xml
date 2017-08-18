@@ -22,6 +22,10 @@
             android:name=".services.NotificationService"
             android:enabled="true" />
 
+        <service
+            android:name=".screenfilter.ScreenfilterService"
+            android:enabled="true" />
+
         <!-- enable below 2 service when features are ready to use -->
         <service
             android:name=".services.FaceDetectService"
