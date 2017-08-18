@@ -6,22 +6,39 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
+import kr.hs.yii.make.eyecover.screenfilter.ScreenfilterService;
 import kr.hs.yii.make.eyecover.services.NotificationService;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button scBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        scBtn = (Button)findViewById(R.id.btn_screenfilter);
+        scBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("MainActivity", "callScreenFilterService");
+                Intent scfIntent = new Intent(getApplicationContext(), ScreenfilterService.class);
+                scfIntent.putExtra(getString(R.string.intent_screenfilter), true);
+                startService(scfIntent);
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getApplicationContext().startService(new Intent(this,NotificationService.class));
+
     }
 
     @Override
@@ -43,4 +60,5 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.activity_main_menu, menu);
         return true;
     }
+
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Eyecover</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="intent_screenfilter">isScreenfilterEnable</string>
 
     <!-- Strings related to Settings -->
 
