@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -36,5 +37,6 @@ public class NotificationService extends Service {
         mNoti.flags |= Notification.FLAG_ONGOING_EVENT;
         NotificationManager mNotiManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mNotiManager.notify(getResources().getInteger(R.integer.notification_id),mNoti);
+        Bundle extras = intent.getExtras();
     }
 }

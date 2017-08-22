@@ -55,6 +55,9 @@ public class ScreenfilterService extends Service {
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mAccessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
+
+
+
     }
 
     @Override
