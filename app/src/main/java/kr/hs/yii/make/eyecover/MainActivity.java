@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -26,39 +27,26 @@ import kr.hs.yii.make.eyecover.screenfilter.ScreenfilterService;
 import kr.hs.yii.make.eyecover.services.NotificationService;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageButton eyecoverBtn;
-    private Button scBtn;
+    private CardView eyecoverCardview;
+    private CardView usePatternCardview;
+    private CardView screenFilterCardview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scBtn = (Button)findViewById(R.id.btn_screenfilter);
-        scBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("MainActivity", "callScreenFilterService");
-                Intent scfIntent = new Intent(getApplicationContext(), ScreenfilterService.class);
-                scfIntent.putExtra(getString(R.string.intent_screenfilter), true);
-                getApplicationContext().startService(scfIntent);
-                Intent i = new Intent();
-                i.setAction(TileReceiver.ACTION_UPDATE_STATUS);
-                i.putExtra(Utility.EXTRA_ACTION,Utility.ACTION_START);
-                sendBroadcast(i);
-            }
-        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getApplicationContext().startService(new Intent(this,NotificationService.class));
-        eyecoverBtn = (ImageButton)findViewById(R.id.eyecoverMainButton);
-        eyecoverBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),EyecoverActivity.class));
-            }
-        });
+        eyecoverCardview = (CardView)findViewById(R.id.eyeCoverCardview);
+        usePatternCardview = (CardView)findViewById(R.id.usePatternCardview);
+        screenFilterCardview = (CardView)findViewById(R.id.screenFilterCardview);
+        eyecoverCardview.setOnClickListener(this);
+        usePatternCardview.setOnClickListener(this);
+        screenFilterCardview.setOnClickListener(this);
+
     }
 
     @Override
@@ -79,5 +67,20 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_menu, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int viewID = view.getId();
+
+        switch(viewID){
+            case R.id.eyeCoverCardview:
+                startActivity(new Intent(this,EyecoverActivity.class));
+                break;
+            case R.id.usePatternCardview:
+                break;
+            case R.id.screenFilterCardview:
+                break;
+        }
     }
 }
