@@ -10,7 +10,7 @@ package kr.hs.yii.make.eyecover.receiver;
     import android.os.Build;
     import android.util.Log;
 
-    import kr.hs.yii.make.eyecover.screenfilter.ScreenfilterService;
+    import kr.hs.yii.make.eyecover.services.ScreenfilterService;
     import kr.hs.yii.make.eyecover.utils.Utility;
 
 public class TileReceiver extends BroadcastReceiver {

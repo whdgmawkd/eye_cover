@@ -28,8 +28,8 @@
             android:name=".services.NotificationService"
             android:enabled="true" />
         <service
-            android:name=".screenfilter.ScreenfilterService"
-            android:enabled="true"></service>
+            android:name=".services.ScreenfilterService"
+            android:enabled="true" />
 
         <!-- enable below 2 service when features are ready to use -->
         <service
@@ -50,10 +50,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EyecoverActivity"
+            android:name=".eyecover.EyecoverActivity"
             android:label="@string/title_activity_eyecover"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -61,13 +60,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="kr.hs.yii.make.eyecover.MainActivity" />
         </activity>
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".screenfilter.ScreenFilterActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kr.hs.yii.make.eyecover.MainActivity" />
         </activity>
     </application>
 

@@ -19,6 +19,8 @@ public class Utility {
     public static final String ACTION_START = "1";
     public static final String ACTION_STOP = "2";
     public static final String EXTRA_ACTION = "EXTRA_ACTION";
+    public static final String ACTION_BRIGHTNESS_CHANGE = "CHANGE_BRIGHTNESS";
+    public static final String EXTRA_BRIGHTNESS = "EXTRA_BRIGHTNESS";
 
     public static final int CM_TILE_CODE = 1001;
 

@@ -1,4 +1,4 @@
-package kr.hs.yii.make.eyecover.screenfilter;
+package kr.hs.yii.make.eyecover.services;
 
 import android.animation.Animator;
 import android.app.Notification;
@@ -36,8 +36,6 @@ public class ScreenfilterService extends Service {
     private View mLayout;
     private WindowManager.LayoutParams mLayoutParams;
 
-    private int mode = 0;
-
     private boolean isShowing = false;
 
     private static final int ANIMATE_DURATION_MILES = 250;
@@ -57,7 +55,6 @@ public class ScreenfilterService extends Service {
         mAccessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
 
 
-
     }
 
     @Override
@@ -73,7 +70,7 @@ public class ScreenfilterService extends Service {
     private void createMaskView() {
         mAccessibilityManager.isEnabled();
 
-        updateLayoutParams(mode, -1);
+        updateLayoutParams(-1);
         mLayoutParams.gravity = Gravity.CENTER;
 
         if (mLayout == null) {
@@ -99,7 +96,7 @@ public class ScreenfilterService extends Service {
         }
     }
 
-    private void updateLayoutParams(int mode, int paramInt) {
+    private void updateLayoutParams(int paramInt) {
         if (mLayoutParams == null) {
             mLayoutParams = new LayoutParams();
         }
@@ -228,7 +225,7 @@ public class ScreenfilterService extends Service {
                     createNotification();
                     startForeground(NOTIFICATION_NO, mNoti);
                     try {
-                        updateLayoutParams(mode, brightness);
+                        updateLayoutParams(brightness);
                         mWindowManager.updateViewLayout(mLayout, mLayoutParams);
                     } catch (Exception e) {
                         // do nothing....
@@ -241,7 +238,22 @@ public class ScreenfilterService extends Service {
                     isShowing = false;
                     stopSelf();
                     break;
-
+                case Utility.ACTION_BRIGHTNESS_CHANGE:
+                    Log.i(TAG,"Change Brightness");
+                    try {
+                        if (mLayout == null){
+                            createMaskView();
+                        }
+                        if(isShowing==false) {
+                            createNotification();
+                            startForeground(NOTIFICATION_NO, mNoti);
+                        }
+                        brightness = intent.getIntExtra(Utility.EXTRA_BRIGHTNESS,80);
+                        updateLayoutParams(brightness);
+                        mWindowManager.updateViewLayout(mLayout, mLayoutParams);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
             }
 
         }

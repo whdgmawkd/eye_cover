@@ -79,4 +79,7 @@
     <string name="alert_overlay_grant_title">Need Permission</string>
     <string name="alert_overlay_grant_msg">To use ScreenFilter, App needs \"Draw over the other apps\" permission.</string>
     <string name="alert_overlay_grant_go_settings">Go Settings</string>
+    <string name="main_eyecovery_title">Eyecover</string>
+    <string name="main_usePattern_title">Use Pattern</string>
+    <string name="main_screenFilter_title">ScreenFilter</string>
 </resources>

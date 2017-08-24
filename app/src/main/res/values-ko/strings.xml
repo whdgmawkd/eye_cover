@@ -4,4 +4,7 @@
     <string name="alert_overlay_grant_title">권한 필요</string>
     <string name="alert_overlay_grant_msg">스크린 필터 기능을 사용하기 위해서는 \"화면 위에 그리기\" 권한이 필요합니다</string>
     <string name="alert_overlay_grant_go_settings">설정</string>
+    <string name="main_eyecovery_title">눈가리개</string>
+    <string name="main_usePattern_title">사용 습관</string>
+    <string name="main_screenFilter_title">스크린필터</string>
 </resources>
