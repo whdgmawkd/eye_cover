@@ -82,4 +82,7 @@
     <string name="main_eyecovery_title">Eyecover</string>
     <string name="main_usePattern_title">Use Pattern</string>
     <string name="main_screenFilter_title">ScreenFilter</string>
+    <string name="screenfilter_switch_text">Enable ScreenFilter</string>
+    <string name="pref_screenfilter_brightness">Brightness</string>
+    <string name="pref_face_width" translatable="false">face_width</string>
 </resources>

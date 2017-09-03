@@ -7,4 +7,6 @@
     <string name="main_eyecovery_title">눈가리개</string>
     <string name="main_usePattern_title">사용 습관</string>
     <string name="main_screenFilter_title">스크린필터</string>
+    <string name="screenfilter_switch_text">스크린필터 사용</string>
+    <string name="pref_screenfilter_brightness">밝기</string>
 </resources>

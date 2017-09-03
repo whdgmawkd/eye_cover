@@ -40,7 +40,7 @@ public class ScreenfilterService extends Service {
 
     private static final int ANIMATE_DURATION_MILES = 250;
     private static final int NOTIFICATION_NO = 1024;
-    private static int brightness = 80;
+    private static int brightness;
 
 
 
@@ -123,7 +123,7 @@ public class ScreenfilterService extends Service {
         }
 
         if (mLayout != null) {
-            mLayout.setBackgroundColor(Color.argb(220, 200, 100, 0));
+            mLayout.setBackgroundColor(Color.argb(240, 96, 96, 64));
         }
     }
 
@@ -218,6 +218,9 @@ public class ScreenfilterService extends Service {
             switch (action) {
                 case Utility.ACTION_START:
                     Log.i(TAG, "Start Mask");
+                    if(intent.hasExtra(Utility.EXTRA_BRIGHTNESS)){
+                        brightness = intent.getIntExtra(Utility.EXTRA_BRIGHTNESS,100);
+                    }
                     if (mLayout == null){
                         createMaskView();
                     }
@@ -232,10 +235,12 @@ public class ScreenfilterService extends Service {
                         e.printStackTrace();
                     }
                     isShowing = true;
+                    Utility.isScreenFilterEnabled = true;
                     break;
                 case Utility.ACTION_STOP:
                     Log.i(TAG, "Stop Mask");
                     isShowing = false;
+                    Utility.isScreenFilterEnabled = true;
                     stopSelf();
                     break;
                 case Utility.ACTION_BRIGHTNESS_CHANGE:
@@ -244,9 +249,11 @@ public class ScreenfilterService extends Service {
                         if (mLayout == null){
                             createMaskView();
                         }
-                        if(isShowing==false) {
+                        if(!isShowing) {
                             createNotification();
                             startForeground(NOTIFICATION_NO, mNoti);
+                            isShowing = true;
+                            Utility.isScreenFilterEnabled = true;
                         }
                         brightness = intent.getIntExtra(Utility.EXTRA_BRIGHTNESS,80);
                         updateLayoutParams(brightness);

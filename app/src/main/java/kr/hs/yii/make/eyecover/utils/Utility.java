@@ -16,17 +16,31 @@ import java.util.Calendar;
 @SuppressWarnings("unchecked")
 public class Utility {
 
+    // for screenfilter
     public static final String ACTION_START = "1";
     public static final String ACTION_STOP = "2";
+
+    // common intent key
     public static final String EXTRA_ACTION = "EXTRA_ACTION";
+
+    // intent actions
     public static final String ACTION_BRIGHTNESS_CHANGE = "CHANGE_BRIGHTNESS";
     public static final String EXTRA_BRIGHTNESS = "EXTRA_BRIGHTNESS";
+    public static final String EXTRA_EYECOVER = "EXTRA_EYECOVER";
+    public static final String ACTION_EYECOVER_START = "START";
+    public static final String ACTION_EYECOVER_STOP = "STOP";
 
-    public static final int CM_TILE_CODE = 1001;
+    // for popup intent actions
+    public static final String EXTRA_POPUP_STATE = "EXTRA_POPUP_STATE";
+    public static final String EXTRA_POPUP_ENABLE = "ENABLE_POPUP";
+    public static final String EXTRA_POPUP_DISABLE = "DISABLE_POPUP";
 
-    public static final int REQUEST_ALARM_SUNRISE = 1002, REQUEST_ALARM_SUNSET = 1003;
 
     public static final String TAG = Utility.class.getSimpleName();
+
+    // boolean for check status
+    public static boolean isScreenFilterEnabled = false;
+    public static boolean isPopupEnable = false;
 
     public static int getTrueScreenHeight(Context context) {
         Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -45,10 +59,4 @@ public class Utility {
 
         return dpi;
     }
-
-    public static float dpToPx(Context context, float dp) {
-        Resources r = context.getResources();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
-    }
-
 }

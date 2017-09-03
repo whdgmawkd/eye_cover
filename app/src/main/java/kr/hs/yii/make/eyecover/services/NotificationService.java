@@ -34,7 +34,7 @@ public class NotificationService extends Service {
                 .setContentText("this is test notification from services");
 
         Notification mNoti = mNotiBuilder.build();
-        mNoti.flags |= Notification.FLAG_ONGOING_EVENT;
+        mNoti.flags |= Notification.FLAG_AUTO_CANCEL;
         NotificationManager mNotiManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mNotiManager.notify(getResources().getInteger(R.integer.notification_id),mNoti);
         Bundle extras = intent.getExtras();
