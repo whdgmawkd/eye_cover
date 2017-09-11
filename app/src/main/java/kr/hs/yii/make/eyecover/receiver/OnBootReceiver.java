@@ -8,10 +8,11 @@ import android.util.Log;
 import kr.hs.yii.make.eyecover.services.NotificationService;
 
 /**
- * Created by parkjongheum on 14/08/2017.
+ * Run Application on Boot.
+ * Make Notification and restore previous status(Screenfilter and eyecover)
  */
 
-public class bootCompleteReceiver extends BroadcastReceiver {
+public class OnBootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent onBootIntent = new Intent(context,NotificationService.class);

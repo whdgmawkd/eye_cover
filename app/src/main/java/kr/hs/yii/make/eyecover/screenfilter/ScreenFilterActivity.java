@@ -43,11 +43,13 @@ public class ScreenFilterActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Intent changeScreenFilterState = new Intent(getApplicationContext(),ScreenfilterService.class);
                 if(b){
+                    // Start ScreenFilter Service
                     changeScreenFilterState.putExtra(Utility.EXTRA_ACTION,Utility.ACTION_START);
                     changeScreenFilterState.putExtra(Utility.EXTRA_BRIGHTNESS,100-brightnessSeekBar.getProgress());
                     brightnessSeekBar.setEnabled(true);
                     startService(changeScreenFilterState);
                 } else {
+                    // Stop ScreenFilter Service
                     changeScreenFilterState.putExtra(Utility.EXTRA_ACTION,Utility.ACTION_STOP);
                     brightnessSeekBar.setEnabled(false);
                     startService(changeScreenFilterState);
@@ -57,6 +59,7 @@ public class ScreenFilterActivity extends AppCompatActivity {
         brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                // Change ScreenFilter's brightness
                 int val = seekBar.getProgress();
                 Log.d("ScreenFilterActivity","birghtness changed to "+val);
                 Intent brightnessChangeIntent = new Intent(getApplicationContext(), ScreenfilterService.class);

@@ -1,7 +1,8 @@
 package kr.hs.yii.make.eyecover.receiver;
 
 /**
- * Created by waned8673 on 17. 8. 18.
+ * Deprecated Receiver.
+ * Using ScreenFilter Service Directly.
  */
 
     import android.content.BroadcastReceiver;
@@ -13,6 +14,7 @@ package kr.hs.yii.make.eyecover.receiver;
     import kr.hs.yii.make.eyecover.services.ScreenfilterService;
     import kr.hs.yii.make.eyecover.utils.Utility;
 
+@Deprecated
 public class TileReceiver extends BroadcastReceiver {
 
     public static final String ACTION_UPDATE_STATUS = "kr.hs.yii.make.eyecover.ACTION_UPDATE_STATUS";

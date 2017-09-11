@@ -16,6 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+/*
+ * Check Permission for Camera, Overlay
+ */
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override

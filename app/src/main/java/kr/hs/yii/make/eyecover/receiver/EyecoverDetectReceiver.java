@@ -12,9 +12,11 @@ import kr.hs.yii.make.eyecover.services.TakeImageService;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
- * Created by parkjongheum on 29/08/2017.
+ * Deprecated Receiver.
+ * Using this MAKE TakeImageService NEVER taking picture.
  */
 
+@Deprecated
 public class EyecoverDetectReceiver extends BroadcastReceiver {
 
     public final static String ACTION_EYECOVER_STATUS = "kr.hs.yii.make.eyecover.ACTION_EYECOVER_STATUS";

@@ -6,6 +6,11 @@ import android.os.Bundle;
 
 import kr.hs.yii.make.eyecover.services.NotificationService;
 
+/*
+ * Deprecated Activity. Will be removed.
+ */
+
+@Deprecated
 public class TestActivity extends AppCompatActivity {
 
     @Override

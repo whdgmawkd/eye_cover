@@ -25,6 +25,10 @@ import kr.hs.yii.make.eyecover.utils.Utility;
 
 import static android.view.WindowManager.LayoutParams;
 
+/*
+ * ScreenFilter Service.
+ */
+
 public class ScreenfilterService extends Service {
 
     private WindowManager mWindowManager;
@@ -50,6 +54,7 @@ public class ScreenfilterService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        // default assignment
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mAccessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
@@ -61,10 +66,6 @@ public class ScreenfilterService extends Service {
     public void onDestroy() {
         super.onDestroy();
         destroyMaskView();
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(MainActivity.class.getCanonicalName());
-        broadcastIntent.putExtra("event_id", 2);
-        sendBroadcast(broadcastIntent);
     }
 
     private void createMaskView() {
@@ -125,16 +126,6 @@ public class ScreenfilterService extends Service {
         if (mLayout != null) {
             mLayout.setBackgroundColor(Color.argb(240, 96, 96, 64));
         }
-    }
-
-    private float constrain(float paramFloat1, float paramFloat2, float paramFloat3) {
-        if (paramFloat1 < paramFloat2) {
-            return paramFloat2;
-        }
-        if (paramFloat1 > paramFloat3) {
-            return paramFloat3;
-        }
-        return paramFloat1;
     }
 
     private void destroyMaskView() {

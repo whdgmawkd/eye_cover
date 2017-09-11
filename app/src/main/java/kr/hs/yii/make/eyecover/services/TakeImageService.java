@@ -26,6 +26,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import kr.hs.yii.make.eyecover.utils.Utility;
+
 /**
  * Created by parkjongheum on 11/08/2017.
  */
@@ -56,6 +58,10 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if(!Utility.isEyecoverEnabled)
+            stopSelf();
+
         cameraIntent = intent;
         Log.d("ImageTakin","StartCommand()");
         pref = PreferenceManager.getDefaultSharedPreferences(this);

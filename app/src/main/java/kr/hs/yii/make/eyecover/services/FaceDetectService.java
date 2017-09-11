@@ -25,7 +25,8 @@ import kr.hs.yii.make.eyecover.R;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
- * Created by parkjongheum on 31/08/2017.
+ * Using google mobile vision's face detector.
+ * this service is called after TakeImageService. and send detected face's width to EyecoverPopupService.
  */
 
 public class FaceDetectService extends Service {
@@ -48,20 +49,34 @@ public class FaceDetectService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if(!Utility.isEyecoverEnabled)
+            stopSelf();
+
+        // open file for face detect
         imagePath = new File(getCacheDir(),"facedetect.jpg");
+        // decode jpg file to bitmap.
         faceImageBitmap = BitmapFactory.decodeFile(imagePath.getAbsolutePath());
+        // face detector setup.
         mFaceDetector = new FaceDetector.Builder(getApplicationContext())
                 .setTrackingEnabled(false)
                 .setLandmarkType(FaceDetector.ALL_LANDMARKS)
                 .build();
+        // convert bitmap to face detect frame.
         faceImage = new Frame.Builder().setBitmap(faceImageBitmap).build();
+        // detect face.
         faces = mFaceDetector.detect(faceImage);
         Face mFace = faces.valueAt(0);
+        // get current face width
         faceWidth = mFace.getWidth();
         prefFaceWidth = getPrefFaceWidth();
+
+        // compare current face width and saved face width.
         if(faceWidth < prefFaceWidth){
+            // make warning popup
             popupIntent.putExtra(Utility.EXTRA_POPUP_STATE,Utility.EXTRA_POPUP_ENABLE);
         }else {
+            // remove warning popup
             popupIntent.putExtra(Utility.EXTRA_POPUP_STATE,Utility.EXTRA_POPUP_DISABLE);
         }
         startService(popupIntent);
@@ -69,6 +84,7 @@ public class FaceDetectService extends Service {
         return START_STICKY;
     }
 
+    // return saved face width.
     private float getPrefFaceWidth(){
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return mPref.getFloat(getString(R.string.pref_face_width),0);

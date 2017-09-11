@@ -32,9 +32,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by parkjongheum on 14/08/2017.
+ * Not Used.
+ * This Service Disabled and Only for reference.
  */
 
+@Deprecated
 public class CameraService extends Service implements
         SurfaceHolder.Callback {
 

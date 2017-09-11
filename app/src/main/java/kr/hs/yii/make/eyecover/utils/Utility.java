@@ -17,8 +17,8 @@ import java.util.Calendar;
 public class Utility {
 
     // for screenfilter
-    public static final String ACTION_START = "1";
-    public static final String ACTION_STOP = "2";
+    public static final String ACTION_START = "START";
+    public static final String ACTION_STOP = "STOP";
 
     // common intent key
     public static final String EXTRA_ACTION = "EXTRA_ACTION";
@@ -35,28 +35,24 @@ public class Utility {
     public static final String EXTRA_POPUP_ENABLE = "ENABLE_POPUP";
     public static final String EXTRA_POPUP_DISABLE = "DISABLE_POPUP";
 
-
-    public static final String TAG = Utility.class.getSimpleName();
-
     // boolean for check status
     public static boolean isScreenFilterEnabled = false;
-    public static boolean isPopupEnable = false;
+    public static boolean isPopupEnabled = false;
+    public static boolean isEyecoverEnabled = false;
 
     public static int getTrueScreenHeight(Context context) {
         Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics dm = new DisplayMetrics();
         display.getRealMetrics(dm);
-        int dpi = dm.heightPixels;
 
-        return dpi;
+        return dm.heightPixels;
     }
 
     public static int getTrueScreenWidth(Context context) {
         Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         DisplayMetrics dm = new DisplayMetrics();
         display.getRealMetrics(dm);
-        int dpi = dm.widthPixels;
 
-        return dpi;
+        return dm.widthPixels;
     }
 }
