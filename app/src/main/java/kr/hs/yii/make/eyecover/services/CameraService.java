@@ -32,8 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Not Used.
- * This Service Disabled and Only for reference.
+ * 참조용으로 사용된 서비스입니다. 작동하지 않습니다.
  */
 
 @Deprecated

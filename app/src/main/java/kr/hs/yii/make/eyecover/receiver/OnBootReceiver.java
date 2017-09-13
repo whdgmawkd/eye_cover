@@ -8,8 +8,7 @@ import android.util.Log;
 import kr.hs.yii.make.eyecover.services.NotificationService;
 
 /**
- * Run Application on Boot.
- * Make Notification and restore previous status(Screenfilter and eyecover)
+ * 부팅시 서비스를 자동으로 시작하도록 합니다.
  */
 
 public class OnBootReceiver extends BroadcastReceiver {

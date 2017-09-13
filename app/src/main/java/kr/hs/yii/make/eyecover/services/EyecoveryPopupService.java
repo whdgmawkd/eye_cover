@@ -24,12 +24,13 @@ import kr.hs.yii.make.eyecover.R;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
- * Make Eyecover Warning Popup.
- * this service is called after FaceDetectService.
+ * 눈가리개 경고 팝업을 표시하는 서비스 입니다.
+ * FaceDetectService에 의하여 호출됩니다.
  */
 
 public class EyecoveryPopupService extends Service {
 
+    // 화면 가장 위에 창을 띄우기 위한 기본 설정입니다.
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mLayoutParams;
     private AccessibilityManager mAccessibilityManager;
@@ -46,29 +47,35 @@ public class EyecoveryPopupService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // Default Assignment
+        // 서비스가 처음 실행될 때 핵심 콤포넌트를 할당합니다.
         mWindowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
         mAccessibilityManager = (AccessibilityManager)getSystemService(Context.ACCESSIBILITY_SERVICE);
         inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 눈가리개 팝업 경고창을 생성하여 표시합니다.
+     * @param popupType 팝업 형태를 지정합니다.
+     */
     private void createPopupView(int popupType){
-        // TODO: 07/09/2017 set mLayout's view by popupType
+        // TODO: popupType에 맞춰 레이아웃 변경하는 기능이 필요함.
+        // 얘 뭐하는지 나도 모르겠음 왜 접근성 관리자에서 확인하는지 검색해야함.
         mAccessibilityManager.isEnabled();
+        // 팝업이 활성화 된것으로 설정합니다.
         Utility.isPopupEnabled = true;
 
+        // 레이아웃 파라미터를 설정합니다.
         if(mLayoutParams == null)
             mLayoutParams = new WindowManager.LayoutParams();
-        // This Popup is "SYSTEM_ALERT". always displayed over other apps.
+        // "TYPE_SYSTEM_ALERT"는 다른 앱 위에 시스템 경고를 표시할 때 사용하므로 구현에 필요합니다.
         mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-        // Fit Device Width and Height.
+        // 레이아웃의 크기를 기기의 화면에 맞춥니다.
         mLayoutParams.height = Resources.getSystem().getDisplayMetrics().heightPixels;
         mLayoutParams.width = Resources.getSystem().getDisplayMetrics().widthPixels;
         mLayoutParams.gravity = Gravity.CENTER;
         mLayoutParams.format = PixelFormat.TRANSPARENT;
 
-        // Inner Layout Inflate.
+        // 내부에 들어갈 레이아웃을 설정합니다.
         if(mLayout == null){
             mLayout = new View(getApplicationContext());
             mLayout.setLayoutParams(
@@ -80,14 +87,14 @@ public class EyecoveryPopupService extends Service {
             mLayout = inflater.inflate(R.layout.alert_warning,null);
         }
 
-        // Show Popup on Device.
+        // 윈도우 매니저에 뷰를 추가합니다.
         try{
             mWindowManager.addView(mLayout,mLayoutParams);
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        // Close Button Logic.
+        // 내부 레이아웃의 닫기 버튼 로직
         Button btn = mLayout.findViewById(R.id.button4);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +107,11 @@ public class EyecoveryPopupService extends Service {
         });
     }
 
+    /**
+     * 표시하고 있던 팝업을 제거합니다.
+     */
     private void destroyPopupView(){
+        // TODO: 12/09/2017 레이아웃이 사라지는 애니메이션을 구현해야 함
         if(mLayout != null){
             Log.d("mLayout","called");
             mWindowManager.removeView(mLayout);
@@ -110,7 +121,7 @@ public class EyecoveryPopupService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
+        // 기능을 사용하지 않음으로 변경하면 서비스를 종료합니다.
         if(!Utility.isEyecoverEnabled)
             stopSelf();
 
@@ -121,9 +132,9 @@ public class EyecoveryPopupService extends Service {
                 destroyPopupView();
             }
         }
-        // Call TakeImageService to measure distance.
+        // 갱신을 위해 TakeImageService를 호출합니다.
         Intent callback = new Intent(this, TakeImageService.class);
-        // todo : callback take image service to check distance
+        // TODO: 12/09/2017 TakeImageService를 재 호출하여 얼굴 인식 결과 갱신
         return START_STICKY;
     }
 }

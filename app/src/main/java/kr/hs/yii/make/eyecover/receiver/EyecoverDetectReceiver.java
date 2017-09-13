@@ -12,8 +12,8 @@ import kr.hs.yii.make.eyecover.services.TakeImageService;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
- * Deprecated Receiver.
- * Using this MAKE TakeImageService NEVER taking picture.
+ * 더이상 사용하지 않는 리시버입니다. 작동하지 않습니다.
+ * 기능 호출을 위해 TakeImageService를 직접 호출하세요.
  */
 
 @Deprecated

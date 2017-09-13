@@ -19,8 +19,11 @@ import kr.hs.yii.make.eyecover.utils.Utility;
 
 public class EyecoverActivity extends AppCompatActivity {
 
+    // 기능 온오프 토글 스위치
     private ToggleButton eyecoverToggleButton;
-    private Intent eyecoverServiceIntent;
+
+    // 기능 온오프시 서비스에 보낼 Intent
+    private Intent eyecoverServiceIntent = new Intent(this, TakeImageService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +38,11 @@ public class EyecoverActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Intent eyecoverBroadcast = new Intent();
-                eyecoverBroadcast.setAction(EyecoverDetectReceiver.ACTION_EYECOVER_STATUS);
-                eyecoverBroadcast.putExtra(Utility.EXTRA_EYECOVER,Utility.ACTION_EYECOVER_STOP);
-                sendBroadcast(eyecoverBroadcast);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        eyecoverServiceIntent = new Intent(this,TakeImageService.class);
-
+        // 토글 버튼 할당 및 상태에 따른 서비스 호출
         eyecoverToggleButton = (ToggleButton) findViewById(R.id.eyecover_toggle_button);
         eyecoverToggleButton.setChecked(Utility.isEyecoverEnabled);
         eyecoverToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

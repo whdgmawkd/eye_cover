@@ -25,29 +25,38 @@ import kr.hs.yii.make.eyecover.utils.Utility;
 
 import static android.view.WindowManager.LayoutParams;
 
-/*
- * ScreenFilter Service.
+/**
+ * 스크린필터 기능을 담당하는 서비스 입니다.
+ * 단독으로 호출하여 사용이 가능합니다
  */
 
 public class ScreenfilterService extends Service {
 
+    // 필터를 표시하기 위한 기본 컴포넌트
     private WindowManager mWindowManager;
     private NotificationManager mNotificationManager;
     private AccessibilityManager mAccessibilityManager;
 
+    // TODO: 12/09/2017 알림 서비스에 통합
+    @Deprecated
     private Notification mNoti;
 
+    // 필터를 위한 내부 뷰
     private View mLayout;
     private WindowManager.LayoutParams mLayoutParams;
 
+    @Deprecated
     private boolean isShowing = false;
+
 
     private static final int ANIMATE_DURATION_MILES = 250;
     private static final int NOTIFICATION_NO = 1024;
+
+    // 필터 세기
     private static int brightness;
 
 
-
+    @Deprecated
     private static final String TAG = ScreenfilterService.class.getSimpleName();
 
     @Override

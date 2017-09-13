@@ -1,8 +1,8 @@
 package kr.hs.yii.make.eyecover.receiver;
 
 /**
- * Deprecated Receiver.
- * Using ScreenFilter Service Directly.
+ * 사용하지 않는 리시버입니다.
+ * ScreenfilterService를 직접 호출하세요.
  */
 
     import android.content.BroadcastReceiver;

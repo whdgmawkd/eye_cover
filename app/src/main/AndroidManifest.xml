@@ -22,6 +22,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <!-- 삭제될 리시버 -->
         <receiver android:name=".receiver.TileReceiver">
             <intent-filter>
                 <action android:name="kr.hs.yii.make.eyecover.ACTION_UPDATE_STATUS" />
@@ -45,6 +47,8 @@
         <service
             android:name=".services.EyecoveryPopupService"
             android:enabled="true" />
+
+        <!-- 삭제될 서비스 -->
         <service
             android:name=".services.CameraService"
             android:enabled="false" />

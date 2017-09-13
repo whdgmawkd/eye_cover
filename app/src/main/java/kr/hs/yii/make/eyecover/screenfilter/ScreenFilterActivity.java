@@ -16,8 +16,11 @@ import kr.hs.yii.make.eyecover.utils.Utility;
 
 public class ScreenFilterActivity extends AppCompatActivity {
 
+    // 필터 세기 조절을 위한 SeekBar
     private SeekBar brightnessSeekBar;
+    // 필터 기능 On/Off를 위한 스위치
     private Switch screenfilterSwitch;
+    // 밝기 저장을 위한 설정 저장소
     private SharedPreferences mPref;
     private SharedPreferences.Editor mPrefEditor;
 
@@ -30,6 +33,8 @@ public class ScreenFilterActivity extends AppCompatActivity {
         brightnessSeekBar = (SeekBar)findViewById(R.id.brightnessBar);
         brightnessSeekBar.setProgress(mPref.getInt(getString(R.string.pref_screenfilter_brightness),0));
         screenfilterSwitch = (Switch) findViewById(R.id.screenfilter_switch);
+
+        // 액티비티 시작 시 스크린 필터 활성화 여부를 확인하여 스위치를 설정합니다.
         if(!Utility.isScreenFilterEnabled) {
             brightnessSeekBar.setEnabled(false);
             screenfilterSwitch.setChecked(false);
@@ -37,7 +42,7 @@ public class ScreenFilterActivity extends AppCompatActivity {
             brightnessSeekBar.setEnabled(true);
             screenfilterSwitch.setChecked(true);
         }
-
+        // 스위치 상태가 변경되면 필터를 시작하거나 종료합니다.
         screenfilterSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -56,6 +61,8 @@ public class ScreenFilterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // 필터 강도를 변경합니다.
         brightnessSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
