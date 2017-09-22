@@ -12,7 +12,7 @@ import android.view.View;
 
 import kr.hs.yii.make.eyecover.eyecover.EyecoverActivity;
 import kr.hs.yii.make.eyecover.screenfilter.ScreenFilterActivity;
-import kr.hs.yii.make.eyecover.services.EyecoveryPopupService;
+import kr.hs.yii.make.eyecover.services.EyecoverPopupService;
 import kr.hs.yii.make.eyecover.services.NotificationService;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this,EyecoverActivity.class));
                 break;
             case R.id.usePatternCardview:
-                Intent test = new Intent(this, EyecoveryPopupService.class);
+                Intent test = new Intent(this, EyecoverPopupService.class);
                 if(!Utility.isPopupEnabled) {
                     test.putExtra(Utility.EXTRA_POPUP_STATE, Utility.EXTRA_POPUP_ENABLE);
                 }else{

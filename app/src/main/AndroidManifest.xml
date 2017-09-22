@@ -23,6 +23,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receiver.EyecoverBroadcastReceiver">
+            <intent-filter>
+                <action android:name="kr.hs.yii.make.eyecover.EYECOVER_ACTION" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+
         <!-- 삭제될 리시버 -->
         <receiver android:name=".receiver.TileReceiver">
             <intent-filter>
@@ -45,7 +52,7 @@
             android:name=".services.TakeImageService"
             android:enabled="true" />
         <service
-            android:name=".services.EyecoveryPopupService"
+            android:name=".services.EyecoverPopupService"
             android:enabled="true" />
 
         <!-- 삭제될 서비스 -->

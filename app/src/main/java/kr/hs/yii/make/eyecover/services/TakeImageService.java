@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import kr.hs.yii.make.eyecover.receiver.EyecoverBroadcastReceiver;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
@@ -63,7 +64,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
             stopSelf();
 
         cameraIntent = intent;
-        Log.d("ImageTakin","StartCommand()");
+        Log.d("TakeImageService","onStartCommand()");
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
 
@@ -93,7 +94,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
     Camera.PictureCallback mCall = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            Log.d("ImageTaking","Done");
+            Log.d("TakeImageService","Done");
             if(bmp != null)
                 bmp.recycle();
             //call garbage collector for memory optimization
@@ -105,10 +106,10 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
             try {
                 fo = openFileOutput("facedetect.jpg", Context.MODE_PRIVATE);
                 fo.write(bytes.toByteArray());
-                Log.d("Camera Callback","File Written to temp folder");
+                Log.d("TakeImageService","PictureCallback: File Written to temp folder");
                 fo.close();
             } catch(Exception e){
-                Log.e("FileOutput","Error",e);
+                Log.e("TakeImageService","PictureCallback: Error",e);
                 e.printStackTrace();
             }
             if(mCamera != null){
@@ -117,7 +118,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
                 mCamera = null;
             }
 
-            Log.d("Camera","Image Taken!");
+            Log.d("TakeImageService","Successfully Taken");
             if(bmp != null){
                 bmp.recycle();
                 bmp = null;
@@ -132,11 +133,16 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
                             .show();
                 }
             });
-            Intent faceDetect = new Intent(getApplicationContext(),FaceDetectService.class);
-            startService(faceDetect);
-            stopSelf();
+            sendFaceDetectBroadcast();
         }
     };
+
+    private void sendFaceDetectBroadcast(){
+        Intent FaceDetectBroadcast = new Intent();
+        FaceDetectBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
+        FaceDetectBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_FACE_DETECT);
+        sendBroadcast(FaceDetectBroadcast);
+    }
 
     private Camera openFrontFacingCamera(){
         if(mCamera != null){
@@ -152,7 +158,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
                 try {
                     cam = Camera.open(camIdx);
                 } catch (RuntimeException e){
-                    Log.e("Camera","Camera failed to open : " + e.getLocalizedMessage());
+                    Log.e("TakeImageService","openFrontFacingCamera: Camera failed to open : " + e.getLocalizedMessage());
                 }
             }
         }
@@ -184,7 +190,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
     private boolean checkCameraHardware(Context context){
         if(context.getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_CAMERA)){
-            Log.d("FaceDetect","Camera found");
+            Log.d("TakeImageService","CheckCamera: Camera found");
             return true;
         } else {
             return false;
@@ -214,7 +220,6 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
     }
 
     private synchronized void takeImage(Intent intent) {
-        intent.putExtra("DUMMY","DUMMY");
         if (checkCameraHardware(getApplicationContext()) && checkFrontCamera(getApplicationContext())) {
             mCamera = openFrontFacingCamera();
             if (mCamera != null) {
@@ -266,6 +271,11 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
 
     @Override
     public void onDestroy() {
+        /* Intent faceDetectBroadcast = new Intent();
+        faceDetectBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
+        faceDetectBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_FACE_DETECT);
+        sendBroadcast(faceDetectBroadcast); */
+        Log.d("TakeImageService","onDestroy");
         if(mCamera != null){
             mCamera.stopPreview();;
             mCamera.release();

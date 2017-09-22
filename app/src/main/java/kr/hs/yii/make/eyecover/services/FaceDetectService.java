@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PointF;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
@@ -18,10 +16,9 @@ import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import kr.hs.yii.make.eyecover.R;
+import kr.hs.yii.make.eyecover.receiver.EyecoverBroadcastReceiver;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
@@ -46,9 +43,6 @@ public class FaceDetectService extends Service {
     // 설정되어 있는 값을 불러오기 위한 저장소 열기
     private SharedPreferences mPref;
 
-    // EyecoverPopupService를 호출하기 위한 Intent
-    private Intent popupIntent = new Intent(getApplicationContext(),EyecoveryPopupService.class);
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -56,10 +50,18 @@ public class FaceDetectService extends Service {
     }
 
     @Override
+    public void onCreate() {
+        Log.d("FaceDetectService","onCreate");
+        super.onCreate();
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // 기능이 중지된 경우 즉시 중단합니다.
-        if(!Utility.isEyecoverEnabled)
-            stopSelf();
+        //if(!Utility.isEyecoverEnabled)
+        //    stopSelf();
+
+        Log.d("FaceDetectService","onStartCommand");
 
         // 얼굴 인식을 위한 사진 파일을 엽니다.
         imagePath = new File(getCacheDir(),"facedetect.jpg");
@@ -80,15 +82,14 @@ public class FaceDetectService extends Service {
         // 설정해놓은 얼굴의 너비를 구합니다
         prefFaceWidth = getPrefFaceWidth();
 
+        // 로그 표시
+        Log.i("FaceDetectService","calculated width : " + faceWidth);
         // 팝업 표시 여부를 구분하기 위해 비교
-        if(faceWidth < prefFaceWidth){
-            // 팝업 생성
-            popupIntent.putExtra(Utility.EXTRA_POPUP_STATE,Utility.EXTRA_POPUP_ENABLE);
-        }else {
-            // 팝업 제거
-            popupIntent.putExtra(Utility.EXTRA_POPUP_STATE,Utility.EXTRA_POPUP_DISABLE);
-        }
-        startService(popupIntent);
+
+        Intent PopupBroadcast = new Intent();
+        PopupBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
+        PopupBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_POPUP);
+        sendBroadcast(PopupBroadcast);
 
         return START_STICKY;
     }

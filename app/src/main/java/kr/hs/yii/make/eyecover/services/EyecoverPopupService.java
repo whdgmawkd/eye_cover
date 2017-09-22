@@ -21,6 +21,7 @@ import android.widget.Button;
 import java.util.Objects;
 
 import kr.hs.yii.make.eyecover.R;
+import kr.hs.yii.make.eyecover.receiver.EyecoverBroadcastReceiver;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
@@ -28,7 +29,7 @@ import kr.hs.yii.make.eyecover.utils.Utility;
  * FaceDetectService에 의하여 호출됩니다.
  */
 
-public class EyecoveryPopupService extends Service {
+public class EyecoverPopupService extends Service {
 
     // 화면 가장 위에 창을 띄우기 위한 기본 설정입니다.
     private WindowManager mWindowManager;
@@ -122,8 +123,12 @@ public class EyecoveryPopupService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // 기능을 사용하지 않음으로 변경하면 서비스를 종료합니다.
-        if(!Utility.isEyecoverEnabled)
+        if(!Utility.isEyecoverEnabled) {
+            Log.d("Eyecover","feature is not enabled");
             stopSelf();
+        }
+
+        Log.i("Eyecover","Service called");
 
         if(intent.hasExtra(Utility.EXTRA_POPUP_STATE)){
             if(intent.getStringExtra(Utility.EXTRA_POPUP_STATE).equals(Utility.EXTRA_POPUP_ENABLE) && !Utility.isPopupEnabled){
@@ -133,7 +138,9 @@ public class EyecoveryPopupService extends Service {
             }
         }
         // 갱신을 위해 TakeImageService를 호출합니다.
-        Intent callback = new Intent(this, TakeImageService.class);
+        Intent takeImageBroadcast = new Intent();
+        takeImageBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
+        takeImageBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_TAKE_IMAGE);
         // TODO: 12/09/2017 TakeImageService를 재 호출하여 얼굴 인식 결과 갱신
         return START_STICKY;
     }

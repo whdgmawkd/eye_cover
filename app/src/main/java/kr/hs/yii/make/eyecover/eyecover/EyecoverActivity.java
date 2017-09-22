@@ -13,6 +13,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import kr.hs.yii.make.eyecover.R;
+import kr.hs.yii.make.eyecover.receiver.EyecoverBroadcastReceiver;
 import kr.hs.yii.make.eyecover.receiver.EyecoverDetectReceiver;
 import kr.hs.yii.make.eyecover.services.TakeImageService;
 import kr.hs.yii.make.eyecover.utils.Utility;
@@ -23,7 +24,7 @@ public class EyecoverActivity extends AppCompatActivity {
     private ToggleButton eyecoverToggleButton;
 
     // 기능 온오프시 서비스에 보낼 Intent
-    private Intent eyecoverServiceIntent = new Intent(this, TakeImageService.class);
+    private Intent eyecoverServiceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class EyecoverActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // 토글 버튼 할당 및 상태에 따른 서비스 호출
+        eyecoverServiceIntent = new Intent();
+        eyecoverServiceIntent.setAction(EyecoverBroadcastReceiver.NAME);
         eyecoverToggleButton = (ToggleButton) findViewById(R.id.eyecover_toggle_button);
         eyecoverToggleButton.setChecked(Utility.isEyecoverEnabled);
         eyecoverToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -51,12 +54,14 @@ public class EyecoverActivity extends AppCompatActivity {
                 if(b){
                     // Start TakeImageService to enable eyecover
                     Utility.isEyecoverEnabled = true;
-                    startService(eyecoverServiceIntent);
+                    eyecoverServiceIntent.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_TAKE_IMAGE);
+                    sendBroadcast(eyecoverServiceIntent);
                     Log.d("EyecoverActivity","Start TakeImageService");
                 } else {
                     // Stop TakeImageService to disable eyecover
                     Utility.isEyecoverEnabled = false;
-                    stopService(eyecoverServiceIntent);
+                    eyecoverServiceIntent.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_HALT);
+                    sendBroadcast(eyecoverServiceIntent);
                     Log.d("EyecoverActivity","Stop TakeImageService");
                 }
             }
