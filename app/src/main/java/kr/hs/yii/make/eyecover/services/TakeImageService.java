@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
+import android.hardware.camera2.params.Face;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +50,8 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
+    private TakeImage takeImage;
+
     // handler for make fault toast massage "failed to open camera"
     Handler handler = new Handler();
 
@@ -63,6 +67,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
         if(!Utility.isEyecoverEnabled)
             stopSelf();
 
+        takeImage = new TakeImage();
         cameraIntent = intent;
         Log.d("TakeImageService","onStartCommand()");
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -100,6 +105,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
             //call garbage collector for memory optimization
             System.gc();
             bmp = decodeBitmap(data);
+            bmp = rotateImage(bmp);
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG,70,bytes);
             // write image to application temp folder
@@ -133,11 +139,11 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
                             .show();
                 }
             });
-            sendFaceDetectBroadcast();
+            sendFaceDetectBroadcast(data);
         }
     };
 
-    private void sendFaceDetectBroadcast(){
+    private void sendFaceDetectBroadcast(byte[] data){
         Intent FaceDetectBroadcast = new Intent();
         FaceDetectBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
         FaceDetectBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_FACE_DETECT);
@@ -276,6 +282,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
         faceDetectBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_FACE_DETECT);
         sendBroadcast(faceDetectBroadcast); */
         Log.d("TakeImageService","onDestroy");
+        takeImage.cancel(false);
         if(mCamera != null){
             mCamera.stopPreview();;
             mCamera.release();
@@ -289,7 +296,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         if(cameraIntent != null)
-            new TakeImage().execute(cameraIntent);
+            takeImage.execute(cameraIntent);
     }
 
     @Override
@@ -318,5 +325,12 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
             bitmap = BitmapFactory.decodeByteArray(data,0,data.length,bfOptions);
         }
         return bitmap;
+    }
+
+    public static Bitmap rotateImage(Bitmap source) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
     }
 }

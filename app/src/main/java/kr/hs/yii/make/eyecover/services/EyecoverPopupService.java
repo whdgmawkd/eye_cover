@@ -141,6 +141,7 @@ public class EyecoverPopupService extends Service {
         Intent takeImageBroadcast = new Intent();
         takeImageBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
         takeImageBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_TAKE_IMAGE);
+        sendBroadcast(takeImageBroadcast);
         // TODO: 12/09/2017 TakeImageService를 재 호출하여 얼굴 인식 결과 갱신
         return START_STICKY;
     }

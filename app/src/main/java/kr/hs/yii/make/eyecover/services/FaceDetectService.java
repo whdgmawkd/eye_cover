@@ -1,6 +1,7 @@
 package kr.hs.yii.make.eyecover.services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,8 +15,10 @@ import android.util.SparseArray;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import com.google.android.gms.vision.face.Landmark;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import kr.hs.yii.make.eyecover.R;
 import kr.hs.yii.make.eyecover.receiver.EyecoverBroadcastReceiver;
@@ -62,12 +65,19 @@ public class FaceDetectService extends Service {
         //    stopSelf();
 
         Log.d("FaceDetectService","onStartCommand");
-
+ /*
         // 얼굴 인식을 위한 사진 파일을 엽니다.
         imagePath = new File(getCacheDir(),"facedetect.jpg");
         // Jpg파일을 비트맵으로 변환합니다.
-        faceImageBitmap = BitmapFactory.decodeFile(imagePath.getAbsolutePath());
+        faceImageBitmap = BitmapFactory.decodeFile(imagePath.getPath());
+        Log.d("FaceDetect","imagePath = "+imagePath.getAbsolutePath());
         // 얼굴 인식기를 초기화 합니다
+        */
+        try {
+            faceImageBitmap = BitmapFactory.decodeStream(openFileInput("facedetect.jpg"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         mFaceDetector = new FaceDetector.Builder(getApplicationContext())
                 .setTrackingEnabled(false)
                 .setLandmarkType(FaceDetector.ALL_LANDMARKS)
@@ -76,9 +86,21 @@ public class FaceDetectService extends Service {
         faceImage = new Frame.Builder().setBitmap(faceImageBitmap).build();
         // 얼굴 인식을 시작합니다
         faces = mFaceDetector.detect(faceImage);
-        Face mFace = faces.valueAt(0);
-        // 사진의 발견된 얼굴의 너비를 구합니다.
-        faceWidth = mFace.getWidth();
+        Log.d("FaceDetect",faces.size()+"");
+
+        if(!mFaceDetector.isOperational()){
+            Log.d("FaceDetect","FaceDetector not available");
+        }
+
+        for (int i = 0; i < faces.size(); ++i) {
+            Face face = faces.valueAt(i);
+            for (Landmark landmark : face.getLandmarks()) {
+                int cx = (int) (landmark.getPosition().x);
+                int cy = (int) (landmark.getPosition().y);
+                Log.d("FaceDetect","x: "+cx+", y: "+cy);
+            }
+            faceWidth = face.getWidth();
+        }
         // 설정해놓은 얼굴의 너비를 구합니다
         prefFaceWidth = getPrefFaceWidth();
 

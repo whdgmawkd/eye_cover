@@ -53,13 +53,11 @@ public class EyecoverActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
                     // Start TakeImageService to enable eyecover
-                    Utility.isEyecoverEnabled = true;
                     eyecoverServiceIntent.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_TAKE_IMAGE);
                     sendBroadcast(eyecoverServiceIntent);
                     Log.d("EyecoverActivity","Start TakeImageService");
                 } else {
                     // Stop TakeImageService to disable eyecover
-                    Utility.isEyecoverEnabled = false;
                     eyecoverServiceIntent.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_HALT);
                     sendBroadcast(eyecoverServiceIntent);
                     Log.d("EyecoverActivity","Stop TakeImageService");

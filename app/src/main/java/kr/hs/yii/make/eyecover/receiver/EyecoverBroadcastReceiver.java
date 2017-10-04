@@ -8,6 +8,7 @@ import android.util.Log;
 import kr.hs.yii.make.eyecover.services.EyecoverPopupService;
 import kr.hs.yii.make.eyecover.services.FaceDetectService;
 import kr.hs.yii.make.eyecover.services.TakeImageService;
+import kr.hs.yii.make.eyecover.utils.Utility;
 
 /**
  * 각 서비스 결과에 따라 다음 서비스를 호출
@@ -45,15 +46,19 @@ public class EyecoverBroadcastReceiver extends BroadcastReceiver {
         switch(action){
             case ACTION_TAKE_IMAGE:
                 callService = new Intent(context, TakeImageService.class);
+                Utility.isEyecoverEnabled = true;
                 break;
             case ACTION_FACE_DETECT:
                 callService = new Intent(context, FaceDetectService.class);
+                Utility.isEyecoverEnabled = true;
                 break;
             case ACTION_POPUP:
                 callService = new Intent(context, EyecoverPopupService.class);
+                Utility.isEyecoverEnabled = true;
                 break;
             case ACTION_HALT:
                 stopAllServices(context);
+                Utility.isEyecoverEnabled = false;
                 break;
         }
         if(callService!=null)

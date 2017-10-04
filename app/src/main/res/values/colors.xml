@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7986CB</color>
-    <color name="colorPrimaryDark">#5C6BC0</color>
-    <color name="colorAccent">#F0A2A2</color>
-    <color name="colorMainIconBG">@color/colorPrimary</color>
-    <color name="colorMainIcon">#9CBB78</color>
+    <color name="colorPrimary">#558B2F</color>
+    <color name="colorPrimaryDark">@color/colorPrimary</color>
+    <color name="colorAccent">#689F38</color>
+    <color name="colorMainIconBG">@color/colorAccent</color>
+    <color name="colorMainIcon">@color/colorAccent</color>
     <!-- 버튼에 쓸 색 #F0A2A2
 메인화면 아이콘 배경에 쓸 색 #EFC02A
 메인화면 아이콘에 쓸 색 #9CBB78-->
