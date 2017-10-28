@@ -5,6 +5,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -54,5 +57,18 @@ public class Utility {
         display.getRealMetrics(dm);
 
         return dm.widthPixels;
+    }
+
+    public static Bitmap rotateImage(Bitmap source) {
+        Matrix matrix = new Matrix();
+        int rotateDeg = 0;
+        // LGE, Samsung 카메라 미리보기 회전 트릭
+        if(Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("LGE"))
+            rotateDeg = 270;
+        else
+            rotateDeg = 90;
+        matrix.postRotate(rotateDeg);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
     }
 }

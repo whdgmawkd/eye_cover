@@ -105,7 +105,7 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
             //call garbage collector for memory optimization
             System.gc();
             bmp = decodeBitmap(data);
-            bmp = rotateImage(bmp);
+            bmp = Utility.rotateImage(bmp);
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG,70,bytes);
             // write image to application temp folder
@@ -131,14 +131,6 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
                 System.gc();
             }
             mCamera = null;
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(),
-                            "Your Picture has been taken!", Toast.LENGTH_SHORT)
-                            .show();
-                }
-            });
             sendFaceDetectBroadcast(data);
         }
     };
@@ -325,12 +317,5 @@ public class TakeImageService extends Service implements SurfaceHolder.Callback 
             bitmap = BitmapFactory.decodeByteArray(data,0,data.length,bfOptions);
         }
         return bitmap;
-    }
-
-    public static Bitmap rotateImage(Bitmap source) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(90);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
-                matrix, true);
     }
 }

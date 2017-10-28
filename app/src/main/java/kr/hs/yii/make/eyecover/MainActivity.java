@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id=item.getItemId();
 
         if(id==R.id.menu_settings){
-            startActivity(new Intent(this,SettingsActivity.class));
             return true;
         }
 
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_menu, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -67,13 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this,EyecoverActivity.class));
                 break;
             case R.id.usePatternCardview:
-                Intent test = new Intent(this, EyecoverPopupService.class);
-                if(!Utility.isPopupEnabled) {
-                    test.putExtra(Utility.EXTRA_POPUP_STATE, Utility.EXTRA_POPUP_ENABLE);
-                }else{
-                    test.putExtra(Utility.EXTRA_POPUP_STATE,Utility.EXTRA_POPUP_DISABLE);
-                }
-                startService(test);
+                startActivity(new Intent(this,UsePatternActivity.class));
                 break;
             case R.id.screenFilterCardview:
                 startActivity(new Intent(this, ScreenFilterActivity.class));

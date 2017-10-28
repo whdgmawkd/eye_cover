@@ -102,15 +102,20 @@ public class FaceDetectService extends Service {
             faceWidth = face.getWidth();
         }
         // 설정해놓은 얼굴의 너비를 구합니다
+
         prefFaceWidth = getPrefFaceWidth();
 
         // 로그 표시
-        Log.i("FaceDetectService","calculated width : " + faceWidth);
+        Log.i("FaceDetectService","calculated width : " + faceWidth + "stored width : " + prefFaceWidth);
         // 팝업 표시 여부를 구분하기 위해 비교
 
         Intent PopupBroadcast = new Intent();
         PopupBroadcast.setAction(EyecoverBroadcastReceiver.NAME);
         PopupBroadcast.putExtra(EyecoverBroadcastReceiver.ACTION,EyecoverBroadcastReceiver.ACTION_POPUP);
+        if(prefFaceWidth < faceWidth){
+            Log.d("FaceDetectService","Enable Popup");
+            PopupBroadcast.putExtra(Utility.EXTRA_POPUP_STATE,Utility.EXTRA_POPUP_ENABLE);
+        }
         sendBroadcast(PopupBroadcast);
 
         return START_STICKY;
@@ -122,6 +127,6 @@ public class FaceDetectService extends Service {
      */
     private float getPrefFaceWidth(){
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return mPref.getFloat(getString(R.string.pref_face_width),0);
+        return mPref.getFloat(getString(R.string.pref_face_width), 0);
     }
 }

@@ -42,6 +42,9 @@ public class EyecoverBroadcastReceiver extends BroadcastReceiver {
 
         Intent callService = null;
 
+        if(!Utility.isEyecoverEnabled)
+            return;
+
         String action = intent.getExtras().getString(ACTION);
         switch(action){
             case ACTION_TAKE_IMAGE:
@@ -54,6 +57,8 @@ public class EyecoverBroadcastReceiver extends BroadcastReceiver {
                 break;
             case ACTION_POPUP:
                 callService = new Intent(context, EyecoverPopupService.class);
+                if(intent.hasExtra(Utility.EXTRA_POPUP_STATE))
+                    callService.putExtra(Utility.EXTRA_POPUP_STATE,intent.getStringExtra(Utility.EXTRA_POPUP_STATE));
                 Utility.isEyecoverEnabled = true;
                 break;
             case ACTION_HALT:

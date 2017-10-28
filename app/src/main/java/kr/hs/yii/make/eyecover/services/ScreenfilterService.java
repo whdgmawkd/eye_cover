@@ -20,7 +20,6 @@ import android.view.accessibility.AccessibilityManager;
 
 import kr.hs.yii.make.eyecover.MainActivity;
 import kr.hs.yii.make.eyecover.R;
-import kr.hs.yii.make.eyecover.receiver.TileReceiver;
 import kr.hs.yii.make.eyecover.utils.Utility;
 
 import static android.view.WindowManager.LayoutParams;
@@ -176,15 +175,14 @@ public class ScreenfilterService extends Service {
     private void createNotification() {
         Log.i(TAG, "Create running notification");
         Intent openIntent = new Intent(this, MainActivity.class);
-        Intent pauseIntent = new Intent();
-        pauseIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+        Intent pendingIntent = new Intent(getApplicationContext(),ScreenfilterService.class);
+        pendingIntent.putExtra(Utility.EXTRA_ACTION,Utility.ACTION_STOP);
         Log.i(TAG, "Create "+Utility.ACTION_STOP+" action");
-        pauseIntent.putExtra(Utility.EXTRA_ACTION, Utility.ACTION_STOP);
 
         Notification.Action pauseAction = new Notification.Action(
                 R.drawable.ic_info_black_24dp,
                 "Stop",
-                PendingIntent.getBroadcast(getBaseContext(), 0, pauseIntent, Intent.FILL_IN_DATA)
+                PendingIntent.getService(getBaseContext(), 0, pendingIntent, Intent.FILL_IN_DATA)
         );
 
         mNoti = new Notification.Builder(getApplicationContext())

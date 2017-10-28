@@ -131,11 +131,13 @@ public class EyecoverPopupService extends Service {
         Log.i("Eyecover","Service called");
 
         if(intent.hasExtra(Utility.EXTRA_POPUP_STATE)){
-            if(intent.getStringExtra(Utility.EXTRA_POPUP_STATE).equals(Utility.EXTRA_POPUP_ENABLE) && !Utility.isPopupEnabled){
+            Log.d("Eyecover","Found State");
+            if(intent.getStringExtra(Utility.EXTRA_POPUP_STATE).equals(Utility.EXTRA_POPUP_ENABLE)){
+                Log.d("Eyecover","Enable Popup");
                 createPopupView(0);
-            } else if(intent.getStringExtra(Utility.EXTRA_POPUP_STATE).equals(Utility.EXTRA_POPUP_DISABLE) && Utility.isPopupEnabled){
-                destroyPopupView();
             }
+        } else if(Utility.isPopupEnabled) {
+            destroyPopupView();
         }
         // 갱신을 위해 TakeImageService를 호출합니다.
         Intent takeImageBroadcast = new Intent();
