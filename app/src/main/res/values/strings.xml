@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Eyecover</string>
+    <string name="title_activity_settings" translatable="false">Settings</string>
+    <string name="intent_screenfilter" translatable="false">isScreenfilterEnable</string>
+
+    <string name="pref_title_vibrate" translatable="false">Vibrate</string>
+    <string name="title_activity_main">Eyecover</string>
+    <string name="title_activity_eyecover">Eyecover</string>
+    <string name="alert_overlay_grant_title">Need Permission</string>
+    <string name="alert_overlay_grant_msg">To use ScreenFilter, App needs \"Draw over the other apps\" permission.</string>
+    <string name="alert_overlay_grant_go_settings">Go Settings</string>
+    <string name="main_eyecovery_title">Eyecover</string>
+    <string name="main_usePattern_title">Use Pattern</string>
+    <string name="main_screenFilter_title">ScreenFilter</string>
+    <string name="screenfilter_switch_text">Enable ScreenFilter</string>
+    <string name="pref_screenfilter_brightness">Brightness</string>
+    <string name="pref_face_width" translatable="false">face_width</string>
+    <string name="eyecover_settings_taking">Take</string>
+    <string name="eyecover_settings_desc">To set FaceDetect distance, Touch TAKE Button</string>
+    <string name="eyecover_active_title">Enable Eyecover</string>
+    <string name="eyecover_settings_button_text">Eyecover Preferences</string>
+    <string name="eyecover_desc">Eyecover feature possibly have up to 10 Seconds delay.\n\nTo set eyecover distace, touch buttom below</string>
+    <string name="eyecover_notice_title">Notice</string>
 </resources>

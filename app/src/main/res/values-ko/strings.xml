@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">눈가리개</string>
+    <string name="alert_overlay_grant_title">권한 필요</string>
+    <string name="alert_overlay_grant_msg">스크린 필터 기능을 사용하기 위해서는 \"화면 위에 그리기\" 권한이 필요합니다</string>
+    <string name="alert_overlay_grant_go_settings">설정</string>
+    <string name="main_eyecovery_title">눈가리개</string>
+    <string name="main_usePattern_title">사용 습관</string>
+    <string name="main_screenFilter_title">스크린필터</string>
+    <string name="screenfilter_switch_text">스크린필터 사용</string>
+    <string name="pref_screenfilter_brightness">밝기</string>
+    <string name="title_activity_main">눈가리개</string>
+    <string name="title_activity_eyecover">눈가리개</string>
+    <string name="eyecover_settings_taking">설정</string>
+    <string name="eyecover_settings_desc">설정 버튼을 터치하여 인식 거리를 조정하세요.</string>
+    <string name="eyecover_active_title">눈가리개 활성화</string>
+    <string name="eyecover_settings_button_text">눈가리개 설정</string>
+    <string name="eyecover_desc">눈가리개 기능은 최대 10초까지 늦게 반응할 수 있습니다.인식 거리를 조정하려면 아래 버튼을 터치하세요.</string>
+    <string name="eyecover_notice_title">알림</string>
+</resources>
