@@ -30,6 +30,7 @@ import kr.hs.yii.make.eyecover.utils.Utility;
  * 사진 촬영에 성공하면 EyecoverPopypService를 호출합니다.
  */
 
+@Deprecated
 public class FaceDetectService extends Service {
 
     // 얼굴 인식 처리를 위한 클래스

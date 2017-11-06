@@ -35,6 +35,7 @@ import kr.hs.yii.make.eyecover.utils.Utility;
  * Created by parkjongheum on 11/08/2017.
  */
 
+@Deprecated
 public class TakeImageService extends Service implements SurfaceHolder.Callback {
 
     private Camera mCamera;

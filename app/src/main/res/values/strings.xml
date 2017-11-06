@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Eyecover</string>
-    <string name="title_activity_settings" translatable="false">Settings</string>
     <string name="intent_screenfilter" translatable="false">isScreenfilterEnable</string>
 
-    <string name="pref_title_vibrate" translatable="false">Vibrate</string>
     <string name="title_activity_main">Eyecover</string>
     <string name="title_activity_eyecover">Eyecover</string>
     <string name="alert_overlay_grant_title">Need Permission</string>
@@ -21,4 +19,5 @@
     <string name="eyecover_settings_button_text">Eyecover Preferences</string>
     <string name="eyecover_desc">Eyecover feature possibly have up to 10 Seconds delay.\n\nTo set eyecover distace, touch buttom below</string>
     <string name="eyecover_notice_title">Notice</string>
+    <string name="pref_last_eyecover_status">last_eyecover_status</string>
 </resources>

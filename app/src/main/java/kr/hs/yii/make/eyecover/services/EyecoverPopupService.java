@@ -29,6 +29,7 @@ import kr.hs.yii.make.eyecover.utils.Utility;
  * FaceDetectService에 의하여 호출됩니다.
  */
 
+@Deprecated
 public class EyecoverPopupService extends Service {
 
     // 화면 가장 위에 창을 띄우기 위한 기본 설정입니다.

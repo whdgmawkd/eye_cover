@@ -63,12 +63,17 @@ public class Utility {
         Matrix matrix = new Matrix();
         int rotateDeg = 0;
         // LGE, Samsung 카메라 미리보기 회전 트릭
-        if(Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("LGE"))
+        if(isRequireCameraTrick())
             rotateDeg = 270;
         else
             rotateDeg = 90;
         matrix.postRotate(rotateDeg);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
+    }
+
+    public static boolean isRequireCameraTrick(){
+        String vendor = Build.MANUFACTURER;
+        return vendor.equals("SAMSUNG") || vendor.equals("samsung") || vendor.equals("Samsung") || vendor.equals("LGE");
     }
 }

@@ -168,7 +168,7 @@ public class EyecoverSettingActivity extends AppCompatActivity implements View.O
         try {
             mCamera.setPreviewDisplay(surfaceHolder);
             int rotateDeg;
-            if(Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("LGE"))
+            if(Utility.isRequireCameraTrick())
                 rotateDeg = 90;
             else
                 rotateDeg = 270;
